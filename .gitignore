@@ -1,16 +1,15 @@
-## Windows template
+﻿### Windows template
 .classpath
 
 # IntelliJ IDEA
 .project
-
+.idea/
 .settings
+*.iml
 
 # файлы проэкта
 target/
 
 .DS_Store
 test-output/
-*.iml
-.idea/
 doc/
