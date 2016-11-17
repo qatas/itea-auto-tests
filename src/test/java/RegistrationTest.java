@@ -8,6 +8,25 @@ public class RegistrationTest extends BaseTest {
     }
 
     /**
+     * Error massage at the empty form after user click submit
+     */
+    @Test
+    public void errorMessageOnEmptyFormSubmit () {
+        LoginRegistrationPage registrationPage = new LoginRegistrationPage(getDriver());
+        registrationPage.registrationFormFillAndSubmit("", "", "", "");
+        Assert.assertEquals(registrationPage.getErrorMessageText(), "Укажите имя", "Expected error message was not found on page");
+    }
+    /**
+     * Error massage at the filled fields form and mistake at the email after user click submit
+     */
+    @Test
+    public void errorMessageOnFillFormBadEmailSubmit (){
+        LoginRegistrationPage registrationPage = new LoginRegistrationPage(getDriver());
+        registrationPage.registrationFormFillAndSubmit("ewrqewr", "qwerqwer", "qwerwqer@gmail", "qewrqwer");
+        Assert.assertEquals(registrationPage.getErrorMessageText(), "Укажите действительный адрес электронной почты", "Expected error message was not found on page");
+    }
+
+    /**
      * List of value that will be used in the test
      * @return value for complete registration form
      */

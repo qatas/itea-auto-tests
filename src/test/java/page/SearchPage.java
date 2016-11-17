@@ -1,17 +1,15 @@
 package page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
- * Methods for search page
+ * Search page - page object, that extends from base page
  */
 public class SearchPage extends BasePage {
     @FindBy(id = "advs")
@@ -40,6 +38,14 @@ public class SearchPage extends BasePage {
     }
 
     /**
+     * Verification that the advancedSearchform is displayed,
+     * @return Verification that is Advanced Search Page Is Loaded
+     */
+    public boolean AdvancedSearchPageIsLoaded() {
+        return waitUntilElementDisplayed(this.advencedSearchForm, 10).isDisplayed();
+    }
+
+    /**
      * Fill search keyword and click on "Submit' button
      * @param searchTerm the parameter which should be found
      */
@@ -50,6 +56,8 @@ public class SearchPage extends BasePage {
         this.keywordsField.submit();
         this.waitUntilElementDisplayed(this.resultsForInfoText);
     }
+
+
 
     /**
      * Get results on the page and count it's number
@@ -63,20 +71,17 @@ public class SearchPage extends BasePage {
      * Get the description of the each web element
      * @return the string list of descriptions
      */
-    public List<String> getDescriptionsStringList() {
-        ArrayList searchResultDescriptionsStringList = new ArrayList();
-        Iterator var2 = this.searchResultDescriptionsList.iterator();
-
-        while(var2.hasNext()) {
-            WebElement searchResultDescriptionElement = (WebElement)var2.next();
-            System.out.println(searchResultDescriptionElement.getText());
-            searchResultDescriptionsStringList.add(searchResultDescriptionElement.getText());
+    public boolean getDescriptionsStringList (String searchTerm) {
+        List<String> searchResultDescriptionStringList = new ArrayList<String>();
+        for (int i=0; i<searchResultDescriptionStringList.size(); i++){
+            if(!searchResultDescriptionStringList.get(i).contains(searchTerm))
+                return false;
         }
-        return searchResultDescriptionsStringList;
+        return true;
     }
 
-    public void ResultsSearchPage() {
-        List resultSearchList = this.driver.findElements(By.xpath("//*[@class=\'description\']/b"));
-        System.out.println(resultSearchList.size() + " элементов на странице.");
-    }
+//    public void ResultsSearchPage() {
+//        List resultSearchList = this.driver.findElements(By.xpath("//*[@class=\'description\']/b"));
+//        System.out.println(resultSearchList.size() + " элементов на странице.");
+//    }
 }

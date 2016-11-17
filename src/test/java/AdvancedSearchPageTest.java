@@ -1,5 +1,7 @@
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 import page.HomePage;
 import page.LoginRegistrationPage;
 import page.SearchPage;
@@ -30,23 +32,20 @@ public class AdvancedSearchPageTest extends BaseTest {
     public Object[][] searchTermsData() {
         return new Object[][]{
                 {"HR", "HR"},
-                {"hr", "HR"}
+                {"hr", "hr"}
         };
     }
 
+
     /**
      * Search by keyword and check that result by keyword is displayed on the page
-     * @param searchTerm
-     * @param expectedContainedTerm
      */
     @Test(dataProvider = "searchTerms")
     public void advancedSearchTest(String searchTerm, String expectedContainedTerm) {
-        SearchPage searchPage = homePage.clickAdvancedSearchLink();
+        SearchPage searchPage = homePage.clickForAdvansedSearchLink();
         searchPage.fillKeywordSearchTermAndSubmit(searchTerm);
         Assert.assertEquals(searchPage.getSearchResultsOnPageCount(), 10, "Actual results on page number is wrong");
-        searchPage.getDescriptionsStringList();
-        searchPage.ResultsSearchPage();
-        Assert.assertTrue(searchPage.getDescriptionsStringList().get(0).contains(expectedContainedTerm) , "Expected search term is not found in ");
+        Assert.assertTrue(searchPage.getDescriptionsStringList(expectedContainedTerm), "Expected search term is not found in result list");
     }
 
 }

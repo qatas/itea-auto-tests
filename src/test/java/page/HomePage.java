@@ -35,10 +35,10 @@ public class HomePage extends BasePage {
 
 	/**
 	 * Click  on advance search link in HomePage
-	 * @return return SearchPage
+	 * @return Search page, that we are switched to the another page advansed people search
 	 */
-	public SearchPage clickAdvancedSearchLink() {
-		this.waitUntilElementDisplayed(advensedSearchLink).click();
-		return new SearchPage(this.driver);
+	public SearchPage clickForAdvansedSearchLink() {
+		waitUntilElementDisplayed(advensedSearchLink).click();
+		return new SearchPage(driver);
 	}
 }
