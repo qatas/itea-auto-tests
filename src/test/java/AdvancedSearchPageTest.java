@@ -4,10 +4,17 @@ import page.HomePage;
 import page.LoginRegistrationPage;
 import page.SearchPage;
 
-public class AdvancedSearchPage extends BaseTest {
+/**
+ * Tests for advanced search
+ */
+public class AdvancedSearchPageTest extends BaseTest {
 
     public HomePage homePage;
 
+    /**
+     * The same operations for all tests, for class search result
+     * it is login in linkedin
+     */
     @BeforeClass
     public void beforeTest() {
         LoginRegistrationPage registrationPage = new LoginRegistrationPage(this.getDriver());
@@ -15,14 +22,23 @@ public class AdvancedSearchPage extends BaseTest {
         Assert.assertTrue(homePage.isPageLoaded());
     }
 
+    /**
+     *  List of search terms that will be used in the test
+     * @return keywords for different searching
+     */
     @DataProvider(name = "searchTerms")
     public Object[][] searchTermsData() {
         return new Object[][]{
                 {"HR", "HR"},
-                {"hr", "hr"}
+                {"hr", "HR"}
         };
     }
 
+    /**
+     * Search by keyword and check that result by keyword is displayed on the page
+     * @param searchTerm
+     * @param expectedContainedTerm
+     */
     @Test(dataProvider = "searchTerms")
     public void advancedSearchTest(String searchTerm, String expectedContainedTerm) {
         SearchPage searchPage = homePage.clickAdvancedSearchLink();

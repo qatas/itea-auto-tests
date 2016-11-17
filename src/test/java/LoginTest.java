@@ -3,10 +3,13 @@ import org.testng.annotations.Test;
 import page.HomePage;
 import page.LoginRegistrationPage;
 
-public class LoginTests extends BaseTest {
-    public LoginTests() {
+public class LoginTest extends BaseTest {
+    public LoginTest() {
     }
 
+    /**
+     * Successful authorization of user
+     */
     @Test(groups = {"l1", "Login"})
     public void successfulLoginTest() {
         LoginRegistrationPage registrationPage = new LoginRegistrationPage(this.getDriver());
